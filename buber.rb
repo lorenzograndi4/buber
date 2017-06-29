@@ -10,13 +10,16 @@ class Buber
     @passengers = []
     @name = 'Buber'
   end
+  def taxi_ride
+
+  end
   def has_passenger(passenger)
     @passengers << passenger
     passenger.client_of(self)
   end
   def check_taxis
-    while @taxis.count <= 10
-      new_taxi = SpaceTaxi.new(rand(1..999))
+    while @taxis.count <= 7
+      new_taxi = SpaceTaxi.new(rand(1..99))
       @taxis << new_taxi
     end
   end
@@ -28,8 +31,11 @@ class Buber
   def select_taxi
     selected = gets.chomp.to_i
     @taxis.each do |t|
-      t.availability = false if selected == t.id.to_i
-      puts "Taxi #{t.id} is coming your way! Which address?"
+      if selected == t.id
+        t.availability = false
+        puts "Taxi #{t.id} is coming your way! Which address?"
+        t.id
+      end
     end
   end
 end
